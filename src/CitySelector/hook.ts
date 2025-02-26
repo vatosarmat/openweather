@@ -48,7 +48,7 @@ const useGeoDirectQuery = (cityInput?: string) => {
   return {
     query,
     fetchCityItems,
-    cityItems: query.isSuccess ? query.data : [],
+    cityItems: query.data,
   };
 };
 
@@ -82,7 +82,7 @@ export const useCitySelector = () => {
   const { query, cityItems, fetchCityItems } = useGeoDirectQuery(
     cityNameInput.valid ? cityNameInput.valueRefined : undefined,
   );
-  const cityItemsRadioGroup = useCityItemsRadioGroup(cityItems);
+  const cityItemsRadioGroup = useCityItemsRadioGroup(cityItems ?? []);
 
   return {
     value: cityItemsRadioGroup.value,

@@ -4,7 +4,7 @@ const envSchema = z.object({
   VITE_OPENWEATHER_APPID: z.string().min(1),
 });
 
-type Environment = z.infer<typeof envSchema>;
+export type Environment = z.infer<typeof envSchema>;
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
