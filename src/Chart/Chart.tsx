@@ -35,7 +35,7 @@ const getXAxisTicks = (reply?: ForecastReply) => {
   const firstSecondDayItem = chartData.find((item) => {
     const date = new Date(item.dt * 1000);
 
-    return date.getDate() !== firstDt.getDate();
+    return date.getUTCDate() !== firstDt.getUTCDate();
   });
 
   if (!firstSecondDayItem) {
@@ -45,13 +45,14 @@ const getXAxisTicks = (reply?: ForecastReply) => {
   const firstSecondDayDt = forecastItemDate(firstSecondDayItem);
 
   const firstTickDt =
-    firstDt.getHours() === firstSecondDayDt.getHours()
+    firstDt.getUTCHours() === firstSecondDayDt.getUTCHours()
       ? firstDt
       : firstSecondDayDt;
 
   return chartData
     .filter(
-      (item) => forecastItemDate(item).getHours() === firstTickDt.getHours(),
+      (item) =>
+        forecastItemDate(item).getUTCHours() === firstTickDt.getUTCHours(),
     )
     .map(dataKey);
 };
@@ -77,16 +78,16 @@ const useForecastQuery = ({ lat, lon }: Pick<ChartProps, 'lat' | 'lon'>) => {
 };
 
 export type ChartProps = {
-  title: string;
+  locationName: string;
   lat: number;
   lon: number;
 };
 
-export const Chart = ({ title, lat, lon }: ChartProps) => {
+export const Chart = ({ locationName, lat, lon }: ChartProps) => {
   const { query, xAxisTicks } = useForecastQuery({ lat, lon });
 
   if (query.status === 'pending') {
-    return <Spinner />;
+    return <Spinner color="black" className="size-20" />;
   }
 
   if (query.status === 'error') {
@@ -95,7 +96,9 @@ export const Chart = ({ title, lat, lon }: ChartProps) => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="text-2xl">{title}</div>
+      <div className="text-2xl">
+        Weather forecast in <span className="font-bold">{locationName}</span>
+      </div>
       <LineChart
         width={800}
         height={300}

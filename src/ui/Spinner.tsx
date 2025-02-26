@@ -2,9 +2,10 @@ import cl from 'classnames';
 
 export type SpinnerProps = {
   className?: string;
+  color: 'white' | 'black';
 };
 
-export const Spinner = ({ className }: SpinnerProps) => {
+export const Spinner = ({ className, color }: SpinnerProps) => {
   return (
     <div className={cl(className, 'flex items-center justify-center')}>
       <div
@@ -13,7 +14,9 @@ export const Spinner = ({ className }: SpinnerProps) => {
           'rounded-full',
           'size-1/2',
           'border-2 border-transparent',
-          'border-l-white border-b-white border-r-white',
+          color === 'white'
+            ? 'border-l-white border-b-white border-r-white'
+            : 'border-l-black border-b-black border-r-black',
         )}
       />
     </div>

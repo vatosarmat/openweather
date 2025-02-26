@@ -15,11 +15,7 @@ export const InnerApp = () => {
       <CitySelector {...citySelectorProps} value={value} />
       {value && (
         <Chart
-          title={
-            value.state
-              ? `${value.name}, ${value.state}, ${value.country}`
-              : `${value.name}, ${value.country}`
-          }
+          locationName={`${value.name}, ${value.state}, ${value.country}`}
           lat={value.lat}
           lon={value.lon}
         />

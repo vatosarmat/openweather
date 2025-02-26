@@ -20,7 +20,10 @@ export const Button = ({
     content = (
       <>
         <div className="invisible">{children}</div>
-        <Spinner className="size-8 absolute left-[50%] top-0 transform-[translateX(-50%)]" />
+        <Spinner
+          color="white"
+          className="size-8 absolute left-[50%] top-0 transform-[translateX(-50%)]"
+        />
       </>
     );
   } else {
